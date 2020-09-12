@@ -4,3 +4,7 @@
 
 #PyCharm(Alpaca131)
 .idea
+
+# VSCode + VENV(Shirataki2
+env
+.vscode
