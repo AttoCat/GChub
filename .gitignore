@@ -1,3 +1,6 @@
 #Aptana Studio(sevenc-nanashi)
 .project
 .pydevproject
+
+#PyCharm(Alpaca131)
+.idea
