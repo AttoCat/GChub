@@ -8,7 +8,7 @@ class GlobalChat(commands.Cog):
     @commands.command()
     async def ping(self, ctx: commands.Context):
         latency = ctx.bot.latency
-        await ctx.send(f'{latency:.2f}ms')
+        await ctx.send(f'{latency*100:.2f}ms')
 
 
 def setup(bot):

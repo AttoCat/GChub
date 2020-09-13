@@ -16,7 +16,7 @@ class Reload(commands.Cog):
             return await ctx.send('Admin専用コマンドです')
         await ctx.send("更新中")
         for files in cogs:
-            for cog in os.listdir(f".cogs/{files}"):
+            for cog in os.listdir(f"./cogs/{files}"):
                 if cog == 'reload.py':
                     continue
                 if cog.endswith(".py"):
