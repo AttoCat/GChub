@@ -1,6 +1,8 @@
 import os
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class GCBot(commands.Bot):
@@ -12,6 +14,7 @@ class GCBot(commands.Bot):
         cogs = ['cogs.global_chat']
         for cog in cogs:
             self.load_extension(cog)
+
 
 if __name__ == "__main__":
     bot = GCBot()
