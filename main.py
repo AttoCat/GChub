@@ -13,7 +13,7 @@ class GCBot(commands.Bot):
         super().__init__(command_prefix=prefix, **kwargs)
 
     async def _load_cogs(self):
-        # self.reload_extension("cogs.main.reload")
+        self.load_extension("cogs.main.reload")
         cogs = ['main', 'global_chat']
         for files in cogs:
             for cog in os.listdir(f"./cogs/{files}"):
