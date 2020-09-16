@@ -5,6 +5,8 @@ import re
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
+
+
 def get_prefix(bot, message):
     match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]", message.guild.me.display_name)
     if match_tmp is None:
