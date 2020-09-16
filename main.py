@@ -27,7 +27,11 @@ class GCBot(commands.Bot):
 
     async def on_ready(self):
         await self._load_cogs()
-        await self.change_presence(activity=discord.Game(name=f"{self.prefix}about | {len(self.guilds)}guilds"))
+        await self.change_presence(
+            activity=discord.Game(
+                name=f"{self.prefix}about | {len(self.guilds)}guilds"
+            )
+        )
 
     async def on_command_error(self, ctx, error1):
         orig_error = getattr(error1, "original", error1)
