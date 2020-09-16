@@ -5,12 +5,14 @@ import re
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
-def get_prefix(bot,message):
-    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]",message.guild.me.display_name)
-    if match_tmp == None:
+def get_prefix(bot, message):
+    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]", message.guild.me.display_name)
+    if match_tmp is None:
         return "gc!"
     else:
         return match_tmp[1]
+
+
 class GCBot(commands.Bot):
     def __init__(self, prefix=get_prefix, **kwargs):
         self.prefix = prefix
