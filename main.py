@@ -15,7 +15,7 @@ def get_prefix(bot, message):
     if match_tmp is None:
         return "gc!"
     elif unicodedata.category(match_tmp[1][-1])[0] in "LD":
-        return match_tmp[1]+" "
+        return match_tmp[1] + " "
     else:
         return match_tmp[1]
 
