@@ -7,7 +7,7 @@ cogs = [
 ]
 
 
-class Reload(commands.Cog):
+class System(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -30,4 +30,4 @@ class Reload(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Reload(bot))
+    bot.add_cog(System(bot))
