@@ -1,13 +1,18 @@
 import os
 import discord
 import traceback
+import re
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
-
-
+def get_prefix(bot,message):
+    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]",message.guild.me.display_name)
+    if match_tmp == None:
+        return "gc!"
+    else:
+        return match_tmp[1]
 class GCBot(commands.Bot):
-    def __init__(self, prefix='$', **kwargs):
+    def __init__(self, prefix=get_prefix, **kwargs):
         self.prefix = prefix
         self.logch_id = 725117475225600041  # commandsチャンネルに設定
         super().__init__(command_prefix=prefix, **kwargs)
