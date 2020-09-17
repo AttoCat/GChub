@@ -1,10 +1,6 @@
 from discord.ext import commands
 import os
 admin_list = [637868010157244449]
-cogs = [
-    'main',
-    'global_chat'
-]
 
 
 class System(commands.Cog):
@@ -16,15 +12,14 @@ class System(commands.Cog):
         if ctx.author.id not in admin_list:
             return await ctx.send('Admin専用コマンドです')
         await ctx.send("更新中")
-        for files in cogs:
-            for cog in os.listdir(f"./cogs/{files}"):
-                if cog == 'reload.py':
-                    continue
-                if cog.endswith(".py"):
-                    try:
-                        self.bot.reload_extension(f"cogs.{files}.{cog[:-3]}")
-                    except commands.ExtensionNotLoaded:
-                        self.bot.load_extension(f"cogs.{files}.{cog[:-3]}")
+        for cog in os.listdir("./cogs"):
+            if cog == 'reload.py':
+                continue
+            if cog.endswith(".py"):
+                try:
+                    self.bot.reload_extension(f"cogs.{cog[:-3]}")
+                except commands.ExtensionNotLoaded:
+                    self.bot.load_extension(f"cogs.{cog[:-3]}")
 
         await ctx.send("更新しました")
 
