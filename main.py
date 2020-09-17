@@ -1,13 +1,27 @@
 import os
 import discord
 import traceback
+import re
+import unicodedata
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
 
 
+def get_prefix(bot, message):
+    if message.guild is None:
+        return "gc!"
+    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]", message.guild.me.display_name)
+    if match_tmp is None:
+        return "gc!"
+    elif unicodedata.category(match_tmp[1][-1])[0] in "LD":
+        return match_tmp[1] + " "
+    else:
+        return match_tmp[1]
+
+
 class GCBot(commands.Bot):
-    def __init__(self, prefix='$', **kwargs):
+    def __init__(self, prefix=get_prefix, **kwargs):
         self.prefix = prefix
         self.logch_id = 725117475225600041  # commandsチャンネルに設定
         super().__init__(command_prefix=prefix, **kwargs)
