@@ -14,7 +14,7 @@ def get_prefix(bot, message):
     match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]", message.guild.me.display_name)
     if match_tmp is None:
         return "gc!"
-    elif unicodedata.category(match_tmp[1][-1])[0] in "LD":
+    elif unicodedata.category(match_tmp[1][-1])[0] in "LN":
         return match_tmp[1] + " "
     else:
         return match_tmp[1]
