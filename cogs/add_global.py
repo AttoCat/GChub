@@ -164,7 +164,7 @@ class Create(commands.Cog):
         # 同意
         if agree.content == ('Y' or 'y' or 'ｙ'):
             await dm.send('設定完了しました。')
-            #~~~~~~~~ここに色々最終処理~~~~~~~~~
+            # ~~~~~~~~ここに色々最終処理~~~~~~~~~
             return
         else:
             await dm.send('お手数ですがもう一度最初からお試しください。')
