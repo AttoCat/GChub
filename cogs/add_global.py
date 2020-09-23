@@ -7,7 +7,14 @@ class Create(commands.Cog):
 
     @commands.command()
     async def create(self, ctx):
-        pass
+#DBから取得
+        all_channel_name=[]
+        all_channel_pass=[]
+        all_channel_owner=[]
+    #その他変数
+        number_list=['1','2','１','２']
+        check_list=['Y','y','ｙ','N','n','ｎ']
+        dm = await ctx.author.create_dm()
 
 
 def setup(bot):
