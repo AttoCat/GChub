@@ -1,3 +1,6 @@
+#Python-general
+__pycache__
+
 #Aptana Studio(sevenc-nanashi)
 .project
 .pydevproject
@@ -9,3 +12,4 @@
 env
 .vscode
 .env
+

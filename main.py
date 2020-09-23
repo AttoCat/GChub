@@ -11,7 +11,8 @@ load_dotenv()
 def get_prefix(bot, message):
     if message.guild is None:
         return "gc!"
-    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]", message.guild.me.display_name)
+    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]",
+                         message.guild.me.display_name)
     if match_tmp is None:
         return "gc!"
     elif unicodedata.category(match_tmp[1][-1])[0] in "LN":
@@ -41,7 +42,7 @@ class GCBot(commands.Bot):
         await self._load_cogs()
         await self.change_presence(
             activity=discord.Game(
-                name=f"{self.prefix}about | {len(self.guilds)}guilds"
+                name=f"gc!about | {len(self.guilds)}guilds"
             )
         )
 
@@ -49,8 +50,7 @@ class GCBot(commands.Bot):
         orig_error = getattr(error1, "original", error1)
         error_msg = ''.join(
             traceback.TracebackException.from_exception(orig_error).format())
-        error_msg = "```py\n" + error_msg + "\n```"
-        await self.get_channel(self.logch_id).send(error_msg)
+        await self.get_channel(self.logch_id).send("```py" + error_msg + "```")
 
 
 if __name__ == "__main__":

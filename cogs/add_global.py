@@ -82,12 +82,11 @@ class Create(commands.Cog):
             except asyncio.TimeoutError:
                 await dm.send('タイムアウトしました。\nもう一度お試しください。')
                 return
-
+            layout = layout_type.content + " - #" + color.content.upper()
         # 出力
         else:
             layout = layout_type.content
-        if color.content:
-            layout = layout_type.content + " - #" + color.content
+
         await dm.send('レイアウトを`' + layout + '`\nに設定します')
 
         # 公開
@@ -137,6 +136,8 @@ class Create(commands.Cog):
                     return
                 else:
                     password = password.content
+            else:
+                password = password.content
 
         # パスワードなし
         if checker.content == ('2' or '２'):
