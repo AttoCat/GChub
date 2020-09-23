@@ -150,7 +150,7 @@ class Create(commands.Cog):
         # 取得
         await dm.send('最終確認です。')
         embed = discord.Embed(title='ユーザー名：' + str(ctx.author.name),
-                              description=f"チャンネル名： `{cname.content}`パスワード：`{password}`", color=discord.Colour.from_rgb(255, 255, 255))
+                              description=f"チャンネル名： `{cname.content}`\nパスワード：`{password}`", color=discord.Colour.from_rgb(255, 255, 255))
         await dm.send(embed=embed)
         await dm.send('上記でよろしいでしょうか？\nYを選択した場合、利用規約に同意したものとみなします。\n Y or N')
 
@@ -161,7 +161,6 @@ class Create(commands.Cog):
         except asyncio.TimeoutError:
             await dm.send('タイムアウトしました。\nもう一度最初からお試しください。')
             return
-
         # 同意
         if agree.content == ('Y' or 'y' or 'ｙ'):
             await dm.send('設定完了しました。')
