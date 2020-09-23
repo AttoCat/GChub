@@ -1,5 +1,8 @@
-from discord.ext import commands
+import discord
+import asyncio
 import re
+from discord.ext import commands
+
 Color_code_re = re.compile(r"[0-9a-fA-F]{6}")
 
 
