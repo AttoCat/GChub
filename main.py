@@ -24,7 +24,7 @@ def get_prefix(bot, message):
 class GCBot(commands.Bot):
     def __init__(self, prefix=get_prefix, **kwargs):
         self.prefix = prefix
-        self.logch_id = 725117475225600041  # commandsチャンネルに設定
+        self.logch_id = 711330036686520331  # error-log
         super().__init__(command_prefix=prefix, **kwargs)
 
     async def _load_cogs(self):
