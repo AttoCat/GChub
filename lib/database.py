@@ -37,11 +37,11 @@ class Database:
 
     async def create_connection(self) -> asyncpg.Connection:
         self.conn = await asyncpg.connect(
-            host=''
-            port=1234
-            user=os.environ["POSTGRES_USER"]
-            password=os.environ["POSTGRES_PASSWORD"]
-            database=os.environ["POSTGRES_DB"]
+            host='',
+            port=1234,
+            user=os.environ["POSTGRES_USER"],
+            password=os.environ["POSTGRES_PASSWORD"],
+            database=os.environ["POSTGRES_DB"],
             loop=self.bot.loop
         )
         return self.conn
