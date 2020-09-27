@@ -1,5 +1,5 @@
 import asyncpg
-from typing import Union, Any # Tupleがあったけど使われてないので削除。
+from typing import Union, Any  # Tupleがあったけど使われてないので削除。
 import os
 
 
