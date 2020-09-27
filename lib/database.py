@@ -1,5 +1,5 @@
 import asyncpg
-from typing import Union, Tuple, Any
+from typing import Union, Any # Tupleがあったけど使われてないので削除。
 import os
 
 
@@ -45,4 +45,3 @@ class Database:
             loop=self.bot.loop
         )
         return self.conn
-
