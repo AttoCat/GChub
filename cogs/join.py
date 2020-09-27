@@ -11,3 +11,5 @@ class Join(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Join(bot))
+
+    
