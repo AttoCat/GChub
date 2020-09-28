@@ -67,10 +67,10 @@ class Database:
         conn = self.conn or self.setup_connection()
         channel_records = await conn.fetch(f'SELECT * FROM ghat_chnnels WHERE gchat_id="{gchat_id}"')
         channel_object_list: List[GchatChannel] = []
-        for channel_tuple in channel_records:
+        for record in channel_records:
             gchat_channel = GchatChannel(
-                channel_id=channel_tuple[0],
-                gchat_id=channel_tuple[1]
+                channel_id=record[0],
+                gchat_id=record[1]
             )
             channel_object_list.append(gchat_channel)
         return channel_object_list
