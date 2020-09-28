@@ -8,8 +8,7 @@ class Join(commands.Cog):
     @commands.command()
     async def join(self, ctx):
         pass
-
+    
+    
 def setup(bot):
     bot.add_cog(Join(bot))
-
-    
