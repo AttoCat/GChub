@@ -68,7 +68,7 @@ class Database:
 
     async def get_gchat_channels(self, gchat_id: str) -> List[GchatChannel]:
         """returns List of `GChatChannel` object that match `gchat_id`."""
-        conn = self.conn or self.setup_connection()
+        conn = self.conn or await self.setup_connection()
         channel_records = await conn.fetch(f'SELECT * FROM ghat_chnnels WHERE gchat_id="{gchat_id}"')
         channel_object_list: List[GchatChannel] = []
         for record in channel_records:
@@ -78,3 +78,17 @@ class Database:
             )
             channel_object_list.append(gchat_channel)
         return channel_object_list
+
+    async def get_gchat(self, gchat_id) -> Union[None, Gchat]:
+        """returns `GChat` object from `gchat_id`. if not exists, returns None."""
+        conn = self.conn or await self.setup_connection()
+        gchat_record = await conn.fetch(f'SELECT * FROM gchat WHERE gchat_id="{gchat_id}"')
+        if not gchat_record:
+            return None
+        gchat_record = gchat_record[0]
+        gchat = Gchat(
+            gchat_id=gchat_record[0],
+            owner_id=gchat_record[1],
+            password=gchat_record[2]
+        )
+        return gchat
