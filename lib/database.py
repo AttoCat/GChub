@@ -25,6 +25,7 @@ class Database:
         self.conn: Union[asyncpg.Connection, None] = None
 
     async def check_database(self, conn: asyncpg.Connection) -> None:
+        """create table(s) if required table(s) are not exists."""
         try:
             await self.conn.execute('SELECT "gchat"::regclass')
         except asyncpg.exceptions.UndefinedColumnError:
@@ -48,6 +49,7 @@ class Database:
             ''')
 
     async def setup_connection(self) -> asyncpg.Connection:
+        """setup connection and returns `asycnpg.Connection` object."""
         self.conn = await asyncpg.connect(
             host='localhost',
             port=12358,
@@ -60,10 +62,12 @@ class Database:
         return self.conn
 
     async def close(self) -> None:
+        """close connection if exists connection."""
         if self.conn is not None:
             await self.conn.close()
 
     async def get_gchat_channels(self, gchat_id: str) -> List[GchatChannel]:
+        """returns List of `GChatChannel` object that match `gchat_id`."""
         conn = self.conn or self.setup_connection()
         channel_records = await conn.fetch(f'SELECT * FROM ghat_chnnels WHERE gchat_id="{gchat_id}"')
         channel_object_list: List[GchatChannel] = []
