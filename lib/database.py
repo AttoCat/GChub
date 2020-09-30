@@ -1,5 +1,5 @@
 import asyncpg
-from typing import Union, Any, List
+from typing import Union, Any, List, Optional
 from dataclasses import dataclass
 import os
 
@@ -22,7 +22,7 @@ class GchatChannel:
 class Database:
     def __init__(self, bot: Any) -> None:
         self.bot = bot
-        self.conn: Union[asyncpg.Connection, None] = None
+        self.conn: Optional[asyncpg.Connection] = None
 
     async def check_database(self, conn: asyncpg.Connection) -> None:
         """create table(s) if required table(s) are not exists."""
@@ -79,7 +79,7 @@ class Database:
             channel_object_list.append(gchat_channel)
         return channel_object_list
 
-    async def get_gchat(self, gchat_id) -> Union[None, Gchat]:
+    async def get_gchat(self, gchat_id) -> Optional[Gchat]:
         """returns `GChat` object from `gchat_id`. if not exists, returns None."""
         conn = self.conn or await self.setup_connection()
         gchat_record = await conn.fetch(f'SELECT * FROM gchat WHERE gchat_id="{gchat_id}"')
