@@ -1,5 +1,5 @@
 import asyncpg
-from typing import Union, Any, List, Optional
+from typing import Any, List, Optional
 from dataclasses import dataclass
 import os
 
@@ -93,14 +93,14 @@ class Database:
         )
         return gchat
 
-    async def get_gchat_channel(self, channel_id) -> Optional[GChatChannel]:
+    async def get_gchat_channel(self, channel_id) -> Optional[GchatChannel]:
         """returns `GChatChannel` object from `channel_id` if exists."""
         conn = self.con or await self.setup_connecttion()
         gchat_channel_record = await conn.fetch(f'SELECT * FROM gchat_channels WHERE channel_id={channel_id}')
         if not gchat_channel_record:
             return None
         gchat_channel_record = gchat_channel_record[0]
-        gchat_channel = GChatChannel(
+        gchat_channel = GchatChannel(
             channel_id=gchat_channel_record[0],
             gchat_id=gchat_channel_record[1]
         )
