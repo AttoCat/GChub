@@ -101,7 +101,7 @@ class Database:
             return None
         gchat_channel_record = gchat_channel_record[0]
         gchat_channel = GChatChannel(
-            channel_id=gchat_channel_record[0]
+            channel_id=gchat_channel_record[0],
             gchat_id=gchat_channel_record[1]
         )
         return gchat_channel
