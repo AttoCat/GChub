@@ -133,3 +133,9 @@ class Database:
         await conn.execute(f'DELETE FROM gchat_channels WHERE gchat_id="{gchat_id}"')
         await conn.execute(f'DELETE FROM gchat WHERE gchat_id="{gchat_id}"')
         return
+
+    async def delete_gchat_channel(self, channel_id, gchat_id):
+        """delete a row from table `gchat_channels`."""
+        conn = self.conn or await self.setup_connection()
+        await conn.execute(f'DELETE FROM gchat_channels WHERE channel_id={channel_id} AND gchat_id="{gchat_id}"')
+        return
