@@ -95,7 +95,7 @@ class Database:
 
     async def get_gchat_channel(self, channel_id) -> Optional[GchatChannel]:
         """returns `GChatChannel` object from `channel_id` if exists."""
-        conn = self.con or await self.setup_connecttion()
+        conn = self.conn or await self.setup_connection()
         gchat_channel_record = await conn.fetch(f'SELECT * FROM gchat_channels WHERE channel_id={channel_id}')
         if not gchat_channel_record:
             return None
@@ -105,3 +105,14 @@ class Database:
             gchat_id=gchat_channel_record[1]
         )
         return gchat_channel
+
+    async def create_gchat(self, gchat_id, owner_id, password) -> Gchat:
+        """insert into database `gchat` an row and returns `Gchat` object."""
+        conn = self.conn or await self.setup_connection()
+        await conn.execute(f'INSERT INTO gchat VALUES ("{gchat_id}", {owner_id}, "{password}")')
+        gchat = Gchat(
+            gchat_id=gchat_id,
+            owner_id=owner_id,
+            password=password
+        )
+        return gchat
