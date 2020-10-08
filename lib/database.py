@@ -120,6 +120,9 @@ class Database:
     async def add_gchat_channel(self, channel_id, gchat_id) -> GchatChannel:
         """insert into database `gchat_channels` and row and returns `GchatChannel` object."""
         conn = self.conn or await self.setup_connection()
+        gchat = await conn.fetch(f'SELECT * FROM gchat WHERE gchat_id="{gchat_id}"')
+        if not gchat:
+            raise ValueError("Unknown ")
         await conn.execute(f'INSERT INTO gchat_channels VALUES ({channel_id}, "{gchat_id}")')
         gchat_channel = GchatChannel(
             channel_id=channel_id,
@@ -130,6 +133,9 @@ class Database:
     async def delete_gchat(self, gchat_id) -> None:
         """delete a row from database `gchat`."""
         conn = self.conn or await self.setup_connection()
+        gchat = conn.fetch(f'SELECT * FROM gchat WHERE gchat_id="{gchat_id}"')
+        if not gchat:
+            raise ValueError("Invalid gchat id")
         await conn.execute(f'DELETE FROM gchat_channels WHERE gchat_id="{gchat_id}"')
         await conn.execute(f'DELETE FROM gchat WHERE gchat_id="{gchat_id}"')
         return
@@ -137,5 +143,8 @@ class Database:
     async def delete_gchat_channel(self, channel_id, gchat_id):
         """delete a row from table `gchat_channels`."""
         conn = self.conn or await self.setup_connection()
+        gchat_channel = await conn.fetch(f'SELECT * FROM gchat_channels WHERE channel_id={channel_id} AND gchat_id="{gchat_id}"')
+        if not gchat_channel:
+            raise ValueError("Invalid gchat id or channel id")
         await conn.execute(f'DELETE FROM gchat_channels WHERE channel_id={channel_id} AND gchat_id="{gchat_id}"')
         return
