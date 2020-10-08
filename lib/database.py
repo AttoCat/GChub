@@ -122,7 +122,7 @@ class Database:
         conn = self.conn or await self.setup_connection()
         gchat = await conn.fetch(f'SELECT * FROM gchat WHERE gchat_id="{gchat_id}"')
         if not gchat:
-            raise ValueError("Unknown ")
+            raise ValueError("Unknown gchat id")
         await conn.execute(f'INSERT INTO gchat_channels VALUES ({channel_id}, "{gchat_id}")')
         gchat_channel = GchatChannel(
             channel_id=channel_id,
