@@ -24,7 +24,7 @@ class Database:
         self.bot = bot
         self.conn: Optional[asyncpg.Connection] = None
 
-    async def check_database(self, conn: asyncpg.Connection) -> None:
+    async def _check_database(self, conn: asyncpg.Connection) -> None:
         """create table(s) if required table(s) are not exists."""
         try:
             await self.conn.execute('SELECT "gchat"::regclass')
@@ -48,7 +48,7 @@ class Database:
                 )
             ''')
 
-    async def setup_connection(self) -> asyncpg.Connection:
+    async def _setup_connection(self) -> asyncpg.Connection:
         """setup connection and returns `asycnpg.Connection` object."""
         self.conn = await asyncpg.connect(
             host='localhost',
