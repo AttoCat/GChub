@@ -8,10 +8,10 @@ class Join(commands.Cog):
 
     @commands.command()
     async def join(self, ctx):
-    # 変数
+        # 変数
         open_channel_name = ['test']   # すべてのパスのないチャンネル名
         close_channel_name = ['TEST']  # すべてのパスのあるチャンネル名
-    # 取得
+        # 取得
         dm = await ctx.author.create_dm()
         await dm.send("※テキストチャンネルで設定すると情報漏洩の原因となりますのでDMで設定します。\nご了承ください。\n**注意： 全ての入力は1分経過するとタイムアウトとなり、やり直しになります。\n事前に入力内容を決めておき、メモ帳に書いておく等することをお勧めします。**")
         await dm.send("グローバルチャットチャンネルに参加します。\n参加したいグローバルチャンネル名を記入してください。")
@@ -23,18 +23,18 @@ class Join(commands.Cog):
         except asyncio.TimeoutError:
             await dm.send('タイムアウトしました\nもう一度最初からお試しください')
             return
-    # 例外
+        # 例外
         if chname.content not in (*open_channel_name, *close_channel_name):
             await dm.send('存在しないチャンネルです。もう一度ご確認ください')
             return
-    # 既存
+        # 既存
         else:
             new_channel_name = chname.content
-        # open
+            # open
             if chname.content in open_channel_name:
                 # DB書き込み
                 await ctx.send('認証しました。\n作成中・・・')
-        # close
+            # close
             elif chname.content in close_channel_name:
                 # DBからchname.contentでpass取得
                 password = 'pass'
@@ -67,8 +67,8 @@ class Join(commands.Cog):
                     # DB書き込み
                     await ctx.send('認証しました。\n作成中・・・')
 
-        # DB書き込みはここに
-        # 作成
+            # DB書き込みはここに
+            # 作成
             await ctx.send(new_channel_name)
             new_chan = await ctx.guild.create_text_channel(name=new_channel_name)
             await new_chan.create_webhook(name="GChub")
