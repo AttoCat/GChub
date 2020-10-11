@@ -1,11 +1,8 @@
-#Python-general
-__pycache__
-
-#Aptana Studio(sevenc-nanashi)
+# Aptana Studio(sevenc-nanashi)
 .project
 .pydevproject
 
-#PyCharm(Alpaca131)
+# PyCharm(Alpaca131)
 .idea
 
 # VSCode + venv + dotenv (Shirataki2)
@@ -13,3 +10,6 @@ env
 .vscode
 .env
 
+# CPython binary files (daima3629)
+__pycache__/*
+*.pyc
