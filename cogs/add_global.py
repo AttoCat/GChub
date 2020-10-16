@@ -133,27 +133,27 @@ class Create(commands.Cog):
                 await dm.send('タイムアウトしました。\nもう一度お試しください。')
                 return
 
-            # 例外
-            if password.content in all_channel_pass:
-                # 取得
-                await dm.send('文字数が範囲外か、既に使われているパスワードです。\nもう一度お試しください。')
-
-                def checkC(m):
-                    return m.content and m.author == ctx.author and m.channel == dm
-                try:
-                    password = await self.bot.wait_for("message", timeout=60.0, check=checkC)
-                except asyncio.TimeoutError:
-                    await dm.send('タイムアウトしました。\nもう一度最初からお試しください。')
-                    return
-
-                # 例外
-                if password.content in all_channel_pass:
-                    await dm.send('文字数が範囲外か、既に使われているパスワードです。\nもう一度最初からお試しください。')
-                    return
-                else:
-                    password = password.content
-            else:
-                password = password.content
+#             # 例外
+#             if password.content in all_channel_pass:
+#                 # 取得
+#                 await dm.send('文字数が範囲外か、既に使われているパスワードです。\nもう一度お試しください。')
+#
+#                 def checkC(m):
+#                     return m.content and m.author == ctx.author and m.channel == dm
+#                 try:
+#                     password = await self.bot.wait_for("message", timeout=60.0, check=checkC)
+#                 except asyncio.TimeoutError:
+#                     await dm.send('タイムアウトしました。\nもう一度最初からお試しください。')
+#                     return
+#
+#                 # 例外
+#                 if password.content in all_channel_pass:
+#                     await dm.send('文字数が範囲外か、既に使われているパスワードです。\nもう一度最初からお試しください。')
+#                     return
+#                 else:
+#                     password = password.content
+#             else:
+            password = password.content
 
         # パスワードなし
         else:
@@ -186,13 +186,11 @@ class Create(commands.Cog):
             await dm.send('タイムアウトしました。\nもう一度最初からお試しください。')
             return
         # 同意
-        if agree.emoji == Check_list[0]:
-            await dm.send('設定完了しました。')
-            # ~~~~~~~~ここに色々最終処理~~~~~~~~~
-            return
-        else:
+        if not agree.emoji == Check_list[0]:
             await dm.send('お手数ですがもう一度最初からお試しください。')
             return
+        await dm.send('設定完了しました。')
+        # ~~~~~~~~ここに色々最終処理~~~~~~~~~
 
 
 def setup(bot):
