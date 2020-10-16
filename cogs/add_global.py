@@ -16,7 +16,7 @@ class Create(commands.Cog):
     async def create(self, ctx):
         # DBから取得
         all_channel_name = []  # すべてのチャンネル名
-        all_channel_pass = []  # すべてのパスワード
+#         all_channel_pass = []  # すべてのパスワード
         all_channel_owner = []  # すべてのチャンネルオーナー
         # イベントループを取得
         loop = asyncio.get_event_loop()
