@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 Nickname_prefix_re = re.compile(r"[「\[［\(（](.+)[\]］\)）」]")
 
+
 def get_prefix(bot, message):
     if message.guild is None:
         return commands.when_mentioned_or("gc!")
