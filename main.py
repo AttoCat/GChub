@@ -6,18 +6,18 @@ import unicodedata
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
-
+Nickname_prefix_re = re.compile(r"[「\[［\(（](.+)[\]］\)）」]")
 
 def get_prefix(bot, message):
     if message.guild is None:
-        return "gc!"
-    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]", message.guild.me.display_name)
+        return commands.when_mentioned_or("gc!")
+    match_tmp = re.match(Nickname_prefix_re, message.guild.me.display_name)
     if match_tmp is None:
-        return "gc!"
+        return commands.when_mentioned_or("gc!")
     elif unicodedata.category(match_tmp[1][-1])[0] in "LN":
-        return match_tmp[1] + " "
+        return commands.when_mentioned_or(match_tmp[1] + " ")
     else:
-        return match_tmp[1]
+        return commands.when_mentioned_or(match_tmp[1])
 
 
 class GCBot(commands.Bot):
