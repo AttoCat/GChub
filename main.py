@@ -42,7 +42,7 @@ class GCBot(commands.Bot):
         await self._load_cogs()
         await self.change_presence(
             activity=discord.Game(
-                name=f"{self.prefix}about | {len(self.guilds)}guilds"
+                name=f"gc!about | {len(self.guilds)}guilds"
             )
         )
 
