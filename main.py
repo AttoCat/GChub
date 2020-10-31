@@ -6,18 +6,19 @@ import unicodedata
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
+Nickname_prefix_re = re.compile(r"[「\[［\(（](.+)[\]］\)）」\|│｜┃]")
 
 
 def get_prefix(bot, message):
     if message.guild is None:
-        return "gc!"
-    match_tmp = re.match(r"[「\[［\(（](.+)[\]］\)）」]", message.guild.me.display_name)
+        return commands.when_mentioned_or("gc!")(bot, message)
+    match_tmp = Nickname_prefix_re.match(message.guild.me.display_name)
     if match_tmp is None:
-        return "gc!"
+        return commands.when_mentioned_or("gc!")(bot, message)
     elif unicodedata.category(match_tmp[1][-1])[0] in "LN":
-        return match_tmp[1] + " "
+        return commands.when_mentioned_or(match_tmp[1] + " ")(bot, message)
     else:
-        return match_tmp[1]
+        return commands.when_mentioned_or(match_tmp[1])(bot, message)
 
 
 class GCBot(commands.Bot):
@@ -41,7 +42,7 @@ class GCBot(commands.Bot):
         await self._load_cogs()
         await self.change_presence(
             activity=discord.Game(
-                name=f"{self.prefix}about | {len(self.guilds)}guilds"
+                name=f"gc!about | {len(self.guilds)}guilds"
             )
         )
 
