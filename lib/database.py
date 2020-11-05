@@ -112,7 +112,7 @@ class Database:
         )
         return gchat_channel
 
-    async def create_gchat(self, gchat_id, owner_id, style,color_code,password) -> Gchat:
+    async def create_gchat(self, gchat_id, owner_id, style, color_code, password) -> Gchat:
         """insert into database `gchat` an row and returns `Gchat` object."""
         conn = self.conn or await self._setup_connection()
         await conn.execute(f"INSERT INTO gchat VALUES ('{gchat_id}', {owner_id}, {style}, {color_code}, '{password}')")
