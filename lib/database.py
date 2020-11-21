@@ -141,7 +141,7 @@ class Database:
     async def get_all_gchat_channels(self) -> List[GchatChannel]:
         """returns all `GChatChannel` object."""
         conn = self.conn or await self._setup_connection()
-        gchat_channel_record = await conn.fetch(f'SELECT * FROM gchat_channels')
+        gchat_channel_record = await conn.fetch('SELECT * FROM gchat_channels')
         if not gchat_channel_record:
             return []
         gchat_channel = []

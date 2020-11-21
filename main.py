@@ -4,6 +4,7 @@ import traceback
 import re
 import unicodedata
 from discord.ext import commands
+from lib.database import Database
 from dotenv import load_dotenv
 load_dotenv()
 Nickname_prefix_re = re.compile(r"[「\[［\(（](.+)[\]］\)）」\|│｜┃]")
@@ -24,6 +25,7 @@ def get_prefix(bot, message):
 class GCBot(commands.Bot):
     def __init__(self, prefix=get_prefix, **kwargs):
         self.prefix = prefix
+        self.db = Database(self)
         self.logch_id = 725117475225600041  # commandsチャンネルに設定
         super().__init__(command_prefix=prefix, **kwargs)
 
