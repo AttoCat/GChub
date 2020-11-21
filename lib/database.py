@@ -138,6 +138,22 @@ class Database:
         )
         return gchat_channel
 
+    async def get_all_gchat_channels(self) -> List[GchatChannel]:
+        """returns all `GChatChannel` object."""
+        conn = self.conn or await self._setup_connection()
+        gchat_channel_record = await conn.fetch(f'SELECT * FROM gchat_channels')
+        if not gchat_channel_record:
+            return []
+        gchat_channel = []
+        for records in gchat_channel_record:
+            gchat_channel.append(
+                GchatChannel(
+                    channel_id=records[0],
+                    gchat_id=records[1]
+                )
+            )
+        return gchat_channel
+
     async def delete_gchat(self, gchat_id) -> None:
         """delete a row from database `gchat`."""
         conn = self.conn or await self._setup_connection()

@@ -56,4 +56,6 @@ class GCBot(commands.Bot):
 
 if __name__ == "__main__":
     bot = GCBot()
+    bot.load_extension("jishaku")
     bot.run(os.environ['TOKEN'])
+    
