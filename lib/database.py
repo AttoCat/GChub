@@ -35,7 +35,7 @@ class Database:
                 CREATE TABLE gchat (
                     gchat_id varchar(20) PRIMARY KEY,
                     owner_id bigint,
-                    style bit,
+                    style integer,
                     color_code int,
                     password varchar(100)
                 )
