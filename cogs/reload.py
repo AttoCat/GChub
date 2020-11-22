@@ -1,6 +1,6 @@
 from discord.ext import commands
 import os
-admin_list = [637868010157244449]
+admin_list = [637868010157244449, 686547120534454315]
 
 
 class System(commands.Cog):

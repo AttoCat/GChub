@@ -9,6 +9,8 @@ class Gchat:
     """Class for global chat data."""
     gchat_id: str
     owner_id: int
+    style: int
+    color_code: int
     password: str
 
 
@@ -28,17 +30,19 @@ class Database:
         """create table(s) if required table(s) are not exists."""
         try:
             await self.conn.execute("SELECT 'gchat'::regclass")
-        except asyncpg.exceptions.UndefinedColumnError:
+        except (asyncpg.exceptions.UndefinedColumnError, asyncpg.exceptions.UndefinedTableError):
             await self.conn.execute('''
                 CREATE TABLE gchat (
                     gchat_id varchar(20) PRIMARY KEY,
                     owner_id bigint,
+                    style integer,
+                    color_code int,
                     password varchar(100)
                 )
             ''')
         try:
             await self.conn.execute("SELECT 'gchat_channels'::regclass")
-        except asyncpg.exceptions.UndefinedColumnError:
+        except (asyncpg.exceptions.UndefinedColumnError, asyncpg.exceptions.UndefinedTableError):
             await self.conn.execute('''
                 CREATE TABLE gchat_channels (
                     channel_id bigint PRIMARY KEY,
@@ -89,7 +93,9 @@ class Database:
         gchat = Gchat(
             gchat_id=gchat_record[0],
             owner_id=gchat_record[1],
-            password=gchat_record[2]
+            style=gchat_record[2],
+            color_code=gchat_record[3],
+            password=gchat_record[4]
         )
         return gchat
 
@@ -106,13 +112,15 @@ class Database:
         )
         return gchat_channel
 
-    async def create_gchat(self, gchat_id, owner_id, password) -> Gchat:
+    async def create_gchat(self, gchat_id, owner_id, style, color_code, password) -> Gchat:
         """insert into database `gchat` an row and returns `Gchat` object."""
         conn = self.conn or await self._setup_connection()
-        await conn.execute(f"INSERT INTO gchat VALUES ('{gchat_id}', {owner_id}, '{password}')")
+        await conn.execute(f"INSERT INTO gchat VALUES ('{gchat_id}', {owner_id}, {style}, {color_code}, '{password}')")
         gchat = Gchat(
             gchat_id=gchat_id,
             owner_id=owner_id,
+            style=style,
+            color_code=color_code,
             password=password
         )
         return gchat
@@ -128,6 +136,22 @@ class Database:
             channel_id=channel_id,
             gchat_id=gchat_id
         )
+        return gchat_channel
+
+    async def get_all_gchat_channels(self) -> List[GchatChannel]:
+        """returns all `GChatChannel` object."""
+        conn = self.conn or await self._setup_connection()
+        gchat_channel_record = await conn.fetch('SELECT * FROM gchat_channels')
+        if not gchat_channel_record:
+            return []
+        gchat_channel = []
+        for records in gchat_channel_record:
+            gchat_channel.append(
+                GchatChannel(
+                    channel_id=records[0],
+                    gchat_id=records[1]
+                )
+            )
         return gchat_channel
 
     async def delete_gchat(self, gchat_id) -> None:
