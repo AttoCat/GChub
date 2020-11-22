@@ -30,7 +30,7 @@ class Database:
         """create table(s) if required table(s) are not exists."""
         try:
             await self.conn.execute("SELECT 'gchat'::regclass")
-        except asyncpg.exceptions.UndefinedColumnError:
+        except (asyncpg.exceptions.UndefinedColumnError, asyncpg.exceptions.UndefinedTableError):
             await self.conn.execute('''
                 CREATE TABLE gchat (
                     gchat_id varchar(20) PRIMARY KEY,
@@ -42,7 +42,7 @@ class Database:
             ''')
         try:
             await self.conn.execute("SELECT 'gchat_channels'::regclass")
-        except asyncpg.exceptions.UndefinedColumnError:
+        except (asyncpg.exceptions.UndefinedColumnError, asyncpg.exceptions.UndefinedTableError):
             await self.conn.execute('''
                 CREATE TABLE gchat_channels (
                     channel_id bigint PRIMARY KEY,
