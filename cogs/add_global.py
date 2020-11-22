@@ -15,8 +15,6 @@ class Create(commands.Cog):
     @commands.command()
     async def create(self, ctx):
         # DBから取得
-        all_channel_name = []  # すべてのチャンネル名
-#         all_channel_pass = []  # すべてのパスワード
         all_channel_owner = []  # すべてのチャンネルオーナー
         # イベントループを取得
         loop = asyncio.get_event_loop()
@@ -39,21 +37,6 @@ class Create(commands.Cog):
         except asyncio.TimeoutError:
             await dm.send('タイムアウトしました。\nもう一度最初からお試しください。')
             return
-
-        # 例外
-        if cname.content in all_channel_name:
-            await dm.send('既に作られているチャンネル名です。\nもう一度お試しください。')
-
-            def checkA(m):
-                return m.content and m.author == ctx.author and m.channel == dm
-            try:
-                cname = await self.bot.wait_for("message", timeout=60.0, check=checkA)
-            except asyncio.TimeoutError:
-                await dm.send('タイムアウトしました。\nもう一度最初からお試しください。')
-                return
-            if cname.content in all_channel_name:
-                await dm.send('既に作られているチャンネル名です。\nもう一度最初からお試しください。')
-                return
 
         # 出力
         await dm.send('チャンネル名を`' + cname.content + '`に設定します。')
@@ -132,27 +115,6 @@ class Create(commands.Cog):
             except asyncio.TimeoutError:
                 await dm.send('タイムアウトしました。\nもう一度お試しください。')
                 return
-
-#             # 例外
-#             if password.content in all_channel_pass:
-#                 # 取得
-#                 await dm.send('文字数が範囲外か、既に使われているパスワードです。\nもう一度お試しください。')
-#
-#                 def checkC(m):
-#                     return m.content and m.author == ctx.author and m.channel == dm
-#                 try:
-#                     password = await self.bot.wait_for("message", timeout=60.0, check=checkC)
-#                 except asyncio.TimeoutError:
-#                     await dm.send('タイムアウトしました。\nもう一度最初からお試しください。')
-#                     return
-#
-#                 # 例外
-#                 if password.content in all_channel_pass:
-#                     await dm.send('文字数が範囲外か、既に使われているパスワードです。\nもう一度最初からお試しください。')
-#                     return
-#                 else:
-#                     password = password.content
-#             else:
             password = password.content
 
         # パスワードなし
