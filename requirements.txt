@@ -1,3 +1,4 @@
 discord.py>=1.4.1
 python-dotenv
 asyncpg>=0.21.0
+jishaku
