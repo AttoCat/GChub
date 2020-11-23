@@ -1,6 +1,6 @@
 from discord.ext import commands
 import os
-admin_list = [637868010157244449, 686547120534454315]
+ADMIN_LIST = [637868010157244449, 686547120534454315]
 
 
 class System(commands.Cog):
@@ -9,7 +9,7 @@ class System(commands.Cog):
 
     @commands.command()
     async def reload(self, ctx):
-        if ctx.author.id not in admin_list:
+        if ctx.author.id not in ADMIN_LIST:
             return await ctx.send('Admin専用コマンドです')
         await ctx.send("更新中")
         for cog in os.listdir("./cogs"):
