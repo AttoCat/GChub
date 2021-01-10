@@ -7,13 +7,13 @@ from discord.ext import commands
 from lib.database import Database
 from dotenv import load_dotenv
 load_dotenv()
-NICKNAME_PREFIX_RE = re.compile(r"[「\[［\(（](.+)[\]］\)）」\|│｜┃]")
+NICKNAME_PREFIX_PATTERN = re.compile(r"[「\[［\(（](.+)[\]］\)）」\|│｜┃]")
 
 
 def get_prefix(bot, message):
     if message.guild is None:
         return commands.when_mentioned_or("gc!")(bot, message)
-    match_tmp = NICKNAME_PREFIX_RE.match(message.guild.me.display_name)
+    match_tmp = NICKNAME_PREFIX_PATTERN.match(message.guild.me.display_name)
     if match_tmp is None:
         return commands.when_mentioned_or("gc!")(bot, message)
     elif unicodedata.category(match_tmp[1][-1])[0] in "LN":
